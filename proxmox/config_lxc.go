@@ -210,6 +210,12 @@ func NewConfigLxcFromApi(vmr *VmRef, client *Client) (config *configLxc, err err
 		nicConfMap := QemuDevice{
 			"id": nicID,
 		}
+		
+                if nicConfMap["firewall"] == 1 {
+                        nicConfMap["firewall"] = true
+                } else if nicConfMap["firewall"] == 0 {
+                        nicConfMap["firewall"] = false
+                }
 		// add rest of device config
 		nicConfMap.readDeviceConfig(nicConfList)
 		// prepare empty network map
